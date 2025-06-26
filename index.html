@@ -1,4 +1,4 @@
-<!-- SnapStudy Carrd-like HTML Site Template -->
+<!-- SnapStudy Carrd-like HTML Site Template with Scroll Animation -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +19,13 @@
       color: white;
       text-align: center;
       padding: 2rem 1rem;
+      animation: fadeIn 1s ease-in-out;
     }
     header img {
       width: 100px;
       height: auto;
       margin-bottom: 1rem;
+      animation: fadeIn 1.5s ease-in-out;
     }
     header h1 {
       margin: 0;
@@ -36,6 +38,13 @@
       padding: 2rem;
       max-width: 900px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .service {
       background: white;
@@ -43,6 +52,10 @@
       padding: 1.5rem;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .service:hover {
+      transform: translateY(-4px);
     }
     .service h3 {
       margin-top: 0;
@@ -59,6 +72,7 @@
       padding: 2rem;
       background-color: #2d2d2d;
       color: white;
+      animation: fadeIn 1s ease-in-out;
     }
     .how-it-works-list {
       list-style: none;
@@ -71,6 +85,10 @@
       border-left: 6px solid #6c5ce7;
       border-radius: 8px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    }
+    .how-it-works-list li:hover {
+      background-color: #f0f0ff;
     }
   </style>
 </head>
@@ -131,5 +149,23 @@
   <footer>
     <p>&copy; 2025 SnapStudy – Built for Students, by Students</p>
   </footer>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
